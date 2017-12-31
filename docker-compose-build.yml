@@ -104,4 +104,13 @@ services:
   dbdata:
     image: tianon/true
     volumes:
-      - /var/lib/mysql
+      - /var/lib/mysql:/var/redis
+
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 6379
+    volumes_from:
+      - dbdata 
