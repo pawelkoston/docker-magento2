@@ -32,7 +32,7 @@ services:
   fpm:
     hostname: fpm.magento2.docker
     build:
-      context: 7.0-fpm/
+      context: 7.1-fpm/
     ports:
       - 9000
     links:
@@ -57,7 +57,7 @@ services:
   cli:
     hostname: cli.magento2.docker
     build:
-      context: 7.0-cli/
+      context: 7.1-cli/
     links:
       - db
     volumes:
@@ -81,12 +81,12 @@ services:
       - M2SETUP_ADMIN_EMAIL=dummy@gmail.com
       - M2SETUP_ADMIN_USER=admin
       - M2SETUP_ADMIN_PASSWORD=password1
-      - M2SETUP_VERSION=2.1.*
+      - M2SETUP_VERSION=2.2.*
       # - M2SETUP_USE_SAMPLE_DATA=true
 
   cron:
     build:
-      context: 7.0-cli/
+      context: 7.1-cli/
     hostname: magento2-cron.docker
     command: run-cron
     environment:
