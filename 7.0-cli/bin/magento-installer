@@ -100,7 +100,7 @@ echo "'frontend' => array(" >> $MAGENTO_ROOT/app/etc/env.php
 echo "'default' => array(" >> $MAGENTO_ROOT/app/etc/env.php
 echo "'backend' => 'Cm_Cache_Backend_Redis'," >> $MAGENTO_ROOT/app/etc/env.php
 echo "'backend_options' => array(" >> $MAGENTO_ROOT/app/etc/env.php
-echo "'server' => 'cache'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "'server' => 'redis'," >> $MAGENTO_ROOT/app/etc/env.php
 echo "'port' => '6379'," >> $MAGENTO_ROOT/app/etc/env.php
 echo "'persistent' => '', // Specify a unique string like "cache-db0" to enable persistent connections." >> $MAGENTO_ROOT/app/etc/env.php
 echo "'database' => '0'," >> $MAGENTO_ROOT/app/etc/env.php
@@ -119,7 +119,7 @@ echo "    )," >> $MAGENTO_ROOT/app/etc/env.php
 echo "    'page_cache' => array(" >> $MAGENTO_ROOT/app/etc/env.php
 echo "      'backend' => 'Cm_Cache_Backend_Redis'," >> $MAGENTO_ROOT/app/etc/env.php
 echo "      'backend_options' => array(" >> $MAGENTO_ROOT/app/etc/env.php
-echo "        'server' => 'cache'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'server' => 'redis'," >> $MAGENTO_ROOT/app/etc/env.php
 echo "        'port' => '6379'," >> $MAGENTO_ROOT/app/etc/env.php
 echo "        'persistent' => '', // Specify a unique string like "cache-db0" to enable persistent connections." >> $MAGENTO_ROOT/app/etc/env.php
 echo "        'database' => '1', // Separate database 1 to keep FPC separately" >> $MAGENTO_ROOT/app/etc/env.php
