@@ -137,8 +137,4 @@ echo ");" >> $MAGENTO_ROOT/app/etc/env.php
 echo "finished updating, app/etc/env.php, clearing magento2 cache for redis switchover"
 rm -rf $MAGENTO_ROOT/var/cache/*
 
-echo "update /etc/hosts file with cache localhost"
-echo "#magento2 redis config" >> /etc/hosts
-echo "127.0.0.1     cache" >> /etc/hosts
-
 echo "Installation complete"

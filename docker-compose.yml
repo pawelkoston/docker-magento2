@@ -64,6 +64,8 @@ services:
     env_file:
       - ./global.env
       - ./composer.env
+    extra_hosts:
+      - "cache:127.0.0.1"
     environment:
       - M2SETUP_INSTALL_DB=true
       - M2SETUP_DB_HOST=db
