@@ -93,6 +93,11 @@ chown -R www-data:www-data $MAGENTO_ROOT
 
 echo "configure magento2 for redis"
 
+sed -i "/'session' =>/d" $MAGENTO_ROOT/app/etc/env.php
+sed -i "/  array (/d" $MAGENTO_ROOT/app/etc/env.php
+sed -i "/    'save' => 'files',/d" $MAGENTO_ROOT/app/etc/env.php
+sed -i "/ ),/d" $MAGENTO_ROOT/app/etc/env.php
+
 sed -i '$ d' $MAGENTO_ROOT/app/etc/env.php
 
 echo "'cache' => array(" >> $MAGENTO_ROOT/app/etc/env.php
@@ -130,6 +135,31 @@ echo "        'lifetimelimit' => '57600', // 16 hours of lifetime for cache reco
 echo "        'compress_data' => '0' // DISABLE compression for EE FPC since it already uses compression" >> $MAGENTO_ROOT/app/etc/env.php
 echo "      )" >> $MAGENTO_ROOT/app/etc/env.php
 echo "    )" >> $MAGENTO_ROOT/app/etc/env.php
+echo "  )" >> $MAGENTO_ROOT/app/etc/env.php
+echo ")," >> $MAGENTO_ROOT/app/etc/env.php
+echo "'session' =>" >> $MAGENTO_ROOT/app/etc/env.php
+echo "array (" >> $MAGENTO_ROOT/app/etc/env.php
+echo "  'save' => 'redis'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "  'redis' =>" >> $MAGENTO_ROOT/app/etc/env.php
+echo "  array (" >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'host' => 'redis'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'port' => '6379'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'password' => ''," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'timeout' => '2.5'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'persistent_identifier' => ''," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'database' => '2'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'compression_threshold' => '2048'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'compression_library' => 'gzip'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'log_level' => '1'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'max_concurrency' => '6'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'break_after_frontend' => '5'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'break_after_adminhtml' => '30'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'first_lifetime' => '600'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'bot_first_lifetime' => '60'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'bot_lifetime' => '7200'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'disable_locking' => '0'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'min_lifetime' => '60'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'max_lifetime' => '2592000'" >> $MAGENTO_ROOT/app/etc/env.php
 echo "  )" >> $MAGENTO_ROOT/app/etc/env.php
 echo ")," >> $MAGENTO_ROOT/app/etc/env.php
 echo ");" >> $MAGENTO_ROOT/app/etc/env.php
