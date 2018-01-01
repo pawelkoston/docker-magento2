@@ -91,4 +91,54 @@ find $MAGENTO_ROOT/var/generation -type d -exec chmod g+s {} \;
 
 chown -R www-data:www-data $MAGENTO_ROOT
 
+echo "configure magento2 for redis"
+
+sed -i '$ d' $MAGENTO_ROOT/app/etc/env.php
+
+echo "'cache' => array(" >> $MAGENTO_ROOT/app/etc/env.php
+echo "'frontend' => array(" >> $MAGENTO_ROOT/app/etc/env.php
+echo "'default' => array(" >> $MAGENTO_ROOT/app/etc/env.php
+echo "'backend' => 'Cm_Cache_Backend_Redis'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "'backend_options' => array(" >> $MAGENTO_ROOT/app/etc/env.php
+echo "'server' => 'cache'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "'port' => '6379'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "'persistent' => '', // Specify a unique string like "cache-db0" to enable persistent connections." >> $MAGENTO_ROOT/app/etc/env.php
+echo "'database' => '0'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'password' => ''," >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'force_standalone' => '0', // 0 for phpredis, 1 for standalone PHP" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'connect_retries' => '1', // Reduces errors due to random connection failures" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'read_timeout' => '10', // Set read timeout duration" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'automatic_cleaning_factor' => '0', // Disabled by default" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'compress_data' => '1', // 0-9 for compression level, recommended: 0 or 1" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'compress_tags' => '1', // 0-9 for compression level, recommended: 0 or 1" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'compress_threshold' => '20480', // Strings below this size will not be compressed" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'compression_lib' => 'gzip', // Supports gzip, lzf and snappy," >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'use_lua' => '0' // Lua scripts should be used for some operations" >> $MAGENTO_ROOT/app/etc/env.php
+echo "      )" >> $MAGENTO_ROOT/app/etc/env.php
+echo "    )," >> $MAGENTO_ROOT/app/etc/env.php
+echo "    'page_cache' => array(" >> $MAGENTO_ROOT/app/etc/env.php
+echo "      'backend' => 'Cm_Cache_Backend_Redis'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "      'backend_options' => array(" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'server' => 'cache'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'port' => '6379'," >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'persistent' => '', // Specify a unique string like "cache-db0" to enable persistent connections." >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'database' => '1', // Separate database 1 to keep FPC separately" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'password' => ''," >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'force_standalone' => '0', // 0 for phpredis, 1 for standalone PHP" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'connect_retries' => '1', // Reduces errors due to random connection failures" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'lifetimelimit' => '57600', // 16 hours of lifetime for cache record" >> $MAGENTO_ROOT/app/etc/env.php
+echo "        'compress_data' => '0' // DISABLE compression for EE FPC since it already uses compression" >> $MAGENTO_ROOT/app/etc/env.php
+echo "      )" >> $MAGENTO_ROOT/app/etc/env.php
+echo "    )" >> $MAGENTO_ROOT/app/etc/env.php
+echo "  )" >> $MAGENTO_ROOT/app/etc/env.php
+echo ")," >> $MAGENTO_ROOT/app/etc/env.php
+echo ");" >> $MAGENTO_ROOT/app/etc/env.php
+
+echo "finished updating, app/etc/env.php, clearing magento2 cache for redis switchover"
+rm -rf $MAGENTO_ROOT/var/cache/*
+
+echo "update /etc/hosts file with cache localhost"
+echo "#magento2 redis config" >> /etc/hosts
+echo "127.0.0.1     cache" >> /etc/hosts
+
 echo "Installation complete"
