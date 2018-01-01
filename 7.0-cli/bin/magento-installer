@@ -162,5 +162,7 @@ echo ");" >> $MAGENTO_ROOT/app/etc/env.php
 
 echo "finished updating, app/etc/env.php, clearing magento2 cache for redis switchover"
 rm -rf $MAGENTO_ROOT/var/cache/*
+rm -rf $MAGENTO_ROOT/var/session/*
+rm -rf $MAGENTO_ROOT/var/page_cache/*
 
 echo "Installation complete"
