@@ -93,11 +93,7 @@ chown -R www-data:www-data $MAGENTO_ROOT
 
 echo "configure magento2 for redis"
 
-sed -i "/'session' =>/d" $MAGENTO_ROOT/app/etc/env.php
-sed -i "/  array (/d" $MAGENTO_ROOT/app/etc/env.php
-sed -i "/    'save' => 'files',/d" $MAGENTO_ROOT/app/etc/env.php
-sed -i "/ ),/d" $MAGENTO_ROOT/app/etc/env.php
-
+sed -i "/'session' =>/,+4d" $MAGENTO_ROOT/app/etc/env.php
 sed -i '$ d' $MAGENTO_ROOT/app/etc/env.php
 
 echo "'cache' => array(" >> $MAGENTO_ROOT/app/etc/env.php
