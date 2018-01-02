@@ -23,6 +23,8 @@ services:
       - redis
     volumes_from:
       - appdata
+    volumes:
+      - ./nginx-logs:/var/log/nginx
     env_file:
       - ./global.env
     #environment:
@@ -41,6 +43,8 @@ services:
       - redis
     volumes_from:
       - appdata
+    volumes:
+      - ./php-fpm-logs:/var/log/php-fpm
     env_file:
       - ./global.env
 
@@ -108,7 +112,7 @@ services:
   dbdata:
     image: tianon/true
     volumes:
-      - /var/lib/mysql:/var/redis
+      - ./mysqldb:/var/lib/mysql
 
   redis:
     image: 'bitnami/redis:latest'
@@ -119,3 +123,5 @@ services:
       - 6379
     volumes_from:
       - dbdata 
+    volumes:
+      - ./redis:/var/redis
