@@ -124,4 +124,4 @@ services:
     volumes_from:
       - dbdata 
     volumes:
-      - ./redis:/var/redis
+      - ./redis:/bitnami
