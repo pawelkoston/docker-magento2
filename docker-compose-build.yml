@@ -50,8 +50,7 @@ services:
 
   db:
     image: mariadb:10
-    user:
-      - mysql
+    user: mysql
     ports:
       - 3306
     volumes_from:
