@@ -47,6 +47,8 @@ services:
 
   db:
     image: mariadb:10
+    user:
+      - mysql
     ports:
       - 3306
     volumes_from:
@@ -56,7 +58,6 @@ services:
       - MYSQL_DATABASE=magento2
       - MYSQL_USER=magento2
       - MYSQL_PASSWORD=magento2
-      - TERM=meh
 
   cli:
     hostname: cli.magento2.docker
@@ -112,7 +113,7 @@ services:
   dbdata:
     image: tianon/true
     volumes:
-     - ./mysqldb:/var/lib/mysql
+      - ./mariadb:/var/lib/mysql
 
   redis:
     image: 'bitnami/redis:latest'
