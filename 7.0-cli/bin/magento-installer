@@ -75,6 +75,7 @@ if [ ! "$M2SETUP_INSTALL_DB" = "false" ]; then
     composer --working-dir=$MAGENTO_ROOT require 'smile/elasticsuite'
     $MAGENTO_COMMAND module:enable Smile_ElasticsuiteCore Smile_ElasticsuiteCatalog Smile_ElasticsuiteSwatches Smile_ElasticsuiteCatalogRule Smile_ElasticsuiteVirtualCategory Smile_ElasticsuiteThesaurus Smile_ElasticsuiteCatalogOptimizer Smile_ElasticsuiteTracker --clear-static-content
     $MAGENTO_COMMAND setup:upgrade
+    $MAGENTO_COMMAND cache:flush
 
     $MAGENTO_COMMAND index:reindex
     $MAGENTO_COMMAND dev:source-theme:deploy
