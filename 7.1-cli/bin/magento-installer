@@ -70,6 +70,10 @@ if [ ! "$M2SETUP_INSTALL_DB" = "false" ]; then
     fi
 
     $INSTALL_COMMAND
+    
+    echo "add elastic suite module"
+    composer --working-dir=$MAGENTO_ROOT require 'smile/elasticsuite'
+
     $MAGENTO_COMMAND index:reindex
     $MAGENTO_COMMAND dev:source-theme:deploy
     $MAGENTO_COMMAND setup:static-content:deploy -f
