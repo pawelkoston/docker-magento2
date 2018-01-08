@@ -32,7 +32,7 @@ services:
       #- HTTPS_METHOD=noredirect
 
   elasticsearch:
-    image: bitnami/elasticsearch:2.4.6
+    image: bitnami/elasticsearch:2.4.4-r2
     env_file: ./global.env
     ports:
       - 9200
