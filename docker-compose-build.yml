@@ -34,13 +34,14 @@ services:
       #- HTTPS_METHOD=noredirect
 
   elasticsearch:
-    image: bitnami/elasticsearch:2.4.4-r2
+    build:
+      context: elasticsearch/
     env_file: ./global.env
     ports:
       - 9200
       - 9300
     volumes:
-      - ./elasticsearch:/bitnami
+      - ./elasticsearch-bitnami:/bitnami/elasticsearch/
 
   fpm:
     hostname: fpm.magento2.docker

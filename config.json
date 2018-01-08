@@ -97,4 +97,15 @@
       "etc/php-fpm.conf": {}
     }
   }
+  "2.4-elasticsearch": {
+     "version": "2.4",
+     "flavour": "elasticsearch",
+     "files": {
+      "Dockerfile": {},
+      "docker-entrypoint.sh": {
+        "executable": true
+      },
+      "conf/elasticsearch.yml": {}
+    } 
+  }
 }
